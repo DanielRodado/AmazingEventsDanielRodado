@@ -25,15 +25,9 @@ function createCard(event) {
 }
 
 function filterEvents(events, currentDate) {
-    let eventsUpComing = [];
-    for (let event of events) {
-        if (
-            parseInt(event.date.slice(0, 4)) >=
-            parseInt(currentDate.slice(0, 4))
-        )
-            eventsUpComing.push(event);
-    }
-    return eventsUpComing;
+    let eventsPast = events.filter(
+        event => parseInt(event.date.slice(0, 4)) >= parseInt(currentDate.slice(0, 4)));
+    return eventsPast;
 }
 
 function generateCard(events, add) {
