@@ -16,7 +16,7 @@ function createCard(event) {
                     <div
                         class="card-footer d-flex justify-content-between align-items-center">
                         <p class="card-text mb-0">$${event.price} USD</p>
-                        <a href="./assets/pages/details.html" role="button" class="btn btn-submit"
+                        <a href="./assets/pages/details.html?key=${event._id}" role="button" class="btn btn-submit"
                         >Details</a>
                     </div>
                 </div>
