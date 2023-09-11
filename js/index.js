@@ -1,4 +1,6 @@
-const container = document.getElementById("containerCards");
+const containerCards = document.getElementById("container-cards");
+const containerCheck = document.getElementById("check-container");
+const search = document.querySelector(".form-control--mod");
 
 function createCard(event) {
     return `<div class="card card--mod">
@@ -24,12 +26,74 @@ function createCard(event) {
             `
 };
 
-function generateCard(events, add) {
-    let template = "";
-    for (let event of events) {
-        template += createCard(event);
-    };
-    add.innerHTML = template;
+function generateCard(listData, referenceToAdd) {
+    if (listData.length > 0) {
+        let template = "";
+        for (let event of listData) {
+            template += createCard(event);
+        };
+        referenceToAdd.innerHTML = template;
+    } else referenceToAdd.innerHTML = "<h4>No results found :(</h4>";
 };
 
-generateCard(data.events, container);
+generateCard(data.events, containerCards);
+
+function createCheckBox(value) {
+    return `<div class="form-check">
+                <input
+                    class="form-check-input"
+                    type="checkbox"
+                    value="${value}"
+                    id="${value}">
+                <label class="form-check-label" for="${value}">
+                    ${value}
+                </label>
+            </div>
+            `
+};
+
+function generateCheck(arrayData) {
+    let arrayCategories = new Set(arrayData.map(element => element.category));
+    let template = "";
+    for (let category of arrayCategories) {
+        template += createCheckBox(category);
+    };
+    return template;
+};
+
+containerCheck.innerHTML = generateCheck(data.events);
+
+containerCheck.addEventListener("change", () => {
+    const listfilteredCheks = doubleFilter(data.events, search.value);
+    generateCard(listfilteredCheks, containerCards);
+});
+
+search.addEventListener("input", () => {
+    const listfilteredSearch = doubleFilter(data.events, search.value);
+    generateCard(listfilteredSearch, containerCards);
+});
+
+function filterChecks(arrayOriginalData) {
+    const checked = document.querySelectorAll("input[type=checkbox]:checked");
+    let listNewData = [];
+    if (checked.length > 0) {
+        for (let checkBox of checked) {
+            listNewData.push(...arrayOriginalData.filter(element => element.category === checkBox.value));
+        };
+    } else listNewData = arrayOriginalData;
+    return listNewData;
+};
+
+function filterSearch(arrayOriginalData, inputValue) {
+    let filteredSearchData = arrayOriginalData;
+    if (inputValue.length > 0) {
+        filteredSearchData = arrayOriginalData.filter(element => element.name.toLowerCase() === inputValue.toLowerCase());
+    };
+    return filteredSearchData;
+};
+
+function doubleFilter(arrayOriginalData, inputValue) {
+    const listFilteredChecks = filterChecks(arrayOriginalData);
+    const listFilteredSearch = filterSearch(listFilteredChecks, inputValue);
+    return listFilteredSearch;
+};
