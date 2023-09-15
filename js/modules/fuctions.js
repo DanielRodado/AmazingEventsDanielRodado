@@ -1,4 +1,4 @@
-export function createCard(event) {
+export function createCard(event, page) {
     return `<div class="card card--mod">
                 <img
                     src=${event.image}
@@ -14,7 +14,7 @@ export function createCard(event) {
                     <div
                         class="card-footer d-flex justify-content-between align-items-center">
                         <p class="card-text mb-0">$${event.price} USD</p>
-                        <a href="./assets/pages/details.html?key=${event._id}" role="button" class="btn btn-submit"
+                        <a href="${page.includes("index.html") ? `./assets/pages/details.html?key=${event._id}`:`./details.html?key=${event._id}`}" role="button" class="btn btn-submit"
                         >Details</a>
                     </div>
                 </div>
@@ -22,11 +22,11 @@ export function createCard(event) {
             `
 };
 
-export function generateCard(listData, referenceToAdd) {
+export function generateCard(listData, referenceToAdd, page) {
     if (listData.length > 0) {
         let template = "";
         for (let event of listData) {
-            template += createCard(event);
+            template += createCard(event, page);
         };
         referenceToAdd.innerHTML = template;
     } else referenceToAdd.innerHTML = "<h4>No results found :(</h4>";
@@ -78,4 +78,37 @@ export function doubleFilter(arrayOriginalData, inputValue) {
     const listFilteredChecks = filterChecks(arrayOriginalData);
     const listFilteredSearch = filterSearch(listFilteredChecks, inputValue);
     return listFilteredSearch;
+};
+
+export function filterEventsUpComing(events, currentDate) {
+    let eventsPast = events.filter(
+        event => parseInt(event.date.slice(0, 4)) >= parseInt(currentDate.slice(0, 4)));
+    return eventsPast;
+};
+
+export function filterEventsPast(events, currentDate) {
+    let eventsPast = events.filter(
+        event => parseInt(event.date.slice(0, 4)) < parseInt(currentDate.slice(0, 4)));
+    return eventsPast;
+};
+
+export function createCardDetails(event) {
+    return `
+    <article class="article-details d-flex flex-column flex-md-row gap-3">
+        <img src=${event.image}>
+        <div class="article-description flex-lg-grow-1 d-flex flex-column">
+            <h3 class="text-center">${event.name}</h3>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item bg-transparent"><b>Date:</b> ${event.date}</li>
+                <li class="list-group-item bg-transparent"> ${event.description}</li>
+                <li class="list-group-item bg-transparent"><b>Category:</b> ${event.category}</li>
+                <li class="list-group-item bg-transparent"><b>Place:</b> ${event.place}</li>
+                <li class="list-group-item bg-transparent"><b>Capacity:</b> ${event.capacity}</li>
+                ${event.hasOwnProperty("assistance") ?
+                `<li class="list-group-item bg-transparent"><b>Assistance:</b> ${event.assistance}</li>`:""}
+                <li class="list-group-item bg-transparent"><b>Price:</b> $${event.price} USD</li>
+            </ul>
+        </div>
+    </article>
+    `;
 };
