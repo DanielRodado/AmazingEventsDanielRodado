@@ -1,12 +1,16 @@
-const parameter = location.search;
+const $parameter = location.search;
+const searchParameter = new URLSearchParams($parameter);
+const idDetail = parseInt(searchParameter.get("key"));
+const $containerCard = document.querySelector(".card-container");
+const URL_API = "https://mindhub-xj03.onrender.com/api/amazing";
 
-const searchParameter = new URLSearchParams(parameter);
-
-const idDetail = searchParameter.get("key");
-
-const eventDetail = data.events.find((event) => event._id === idDetail);
-
-const containerCard = document.querySelector(".card-container");
+fetch(URL_API)
+.then(response => response.json())
+.then(({events}) => {
+    const eventDetail = events.find(element => element._id == idDetail);
+    $containerCard.innerHTML = createCardDetails(eventDetail);
+    })
+    .catch(error => console.log(error));
 
 function createCardDetails(event) {
     return `
@@ -28,5 +32,3 @@ function createCardDetails(event) {
     </article>
     `;
 };
-
-containerCard.innerHTML = createCardDetails(eventDetail);
