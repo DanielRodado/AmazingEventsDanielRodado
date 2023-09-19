@@ -74,59 +74,47 @@
                 STATS
             </h2>
             <div class="container-fluid d-flex flex-column justify-content-center align-items-center pe-5 ps-5 mt-4">
-                <table class="table table-light table-bordered mb-0">
+                <table class="table table-light table-bordered mb-0 text-center">
                     <thead class="table-secondary">
                       <tr>
                         <th scope="col" colspan="3">Events Statistics</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
+                      <tr class="fw-bold">
                         <td>Events with highest % of assistance</td>
                         <td>Events with lowest % of assistance</td>
                         <td>Events with larger capacity</td>
                       </tr>
-                      <tr>
-                        <td>.</td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr class="table-secondary">
-                        <th scope="col" colspan="3">Upcoming events statistics by category</th>
-                      </tr>
-                      <tr>
-                        <td>Categories</td>
-                        <td>Revenues</td>
-                        <td>Percentage of assistance</td>
-                      </tr>
-                      <tr>
-                        <td>.</td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td>.</td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr class="table-secondary">
-                        <th scope="col" colspan="3">Past events statistics by category</th>
-                      </tr>
-                      <tr>
-                        <td>Categories</td>
-                        <td>Revenues</td>
-                        <td>Percentage of assistance</td>
-                      </tr>
-                      <tr>
-                        <td>.</td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td>.</td>
-                        <td></td>
-                        <td></td>
-                      </tr>
+                      <tr id="tbody-tr"></tr>
+                    </tbody>
+                </table>
+                <table class="table table-light table-bordered mb-0 text-center">
+                    <thead class="table-secondary">
+                        <tr>
+                            <th scope="col" colspan="3">Upcoming events statistics by category</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-table-up-coming">
+                        <tr class="fw-bold">
+                          <td>Categories</td>
+                          <td>Revenues</td>
+                          <td>Percentage of assistance</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table table-light table-bordered mb-0 text-center">
+                    <thead class="table-secondary">
+                        <tr>
+                            <th scope="col" colspan="3">Past events statistics by category</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-table-past">
+                        <tr class="fw-bold">
+                          <td>Categories</td>
+                          <td>Revenues</td>
+                          <td>Percentage of assistance</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -155,5 +143,6 @@
             integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
             crossorigin="anonymous"
         ></script>
+        <script type="module" src="../../js/stats.js"></script>
     </body>
 </html>
